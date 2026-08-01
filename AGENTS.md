@@ -16,12 +16,78 @@
 5. 特殊情况处理：对非法输入等做合适处理
 
 ## 类层次结构
-抽象类 `Person` 继承 `Displayable`；`User` 继承 `Person` 和 `Searchable`；`Librarian` 继承 `Person`；`Book` 继承 `Displayable` 和 `Searchable`。
 
-## 其余成员
-- `BorrowRecord`：普通类，持有 `userId`、`bookId`、`borrowDate`、`returnDate`；实现 `Displayable`，重载 `operator<`（按日期排序）
-- `Library`：协调者，持有集合，暴露 CRUD/借阅/搜索/统计方法，供 `main.cpp`/CLI 交互
-- 自定义异常层次结构（派生自 `std::runtime_error`）：`DuplicateIdException`、`RecordNotFoundException`、`InvalidInputException`、`BookUnavailableException`
+### 1. 接口类（纯虚基类）
+*   **`Displayable`**
+    *   **属性**：无
+    *   **方法**：
+        1.  `virtual void display(std::ostream& os) const = 0;`（纯虚函数，用于多态打印）
+
+*   **`Searchable`**
+    *   **属性**：无
+    *   **方法**：
+        1.  `virtual bool matches(const std::string& query) const = 0;`（纯虚函数，用于模糊匹配）
+
+### 2. 实体类（Domain Models）
+
+*   **`Person`（抽象基类）** —— 继承自 `Displayable`
+    *   **属性**：`id`（唯一标识）、`name`（姓名）、`password`（登录密码）、`email`（邮箱）。
+    *   **方法**：
+        1.  Getters/Setters（ `getId()`, `getName()` ）
+        2.  `validatePassword(string pwd) const`（验证密码）
+        3.  `virtual void display(std::ostream& os) const = 0`（重写接口，仍为纯虚）
+
+*   **`User`（普通读者）** —— **多重继承自 `Person` 和 `Searchable`**
+    *   **属性**：`maxBorrowLimit`（最大借书量）、`currentBorrowCount`（当前已借数）、`borrowedBookIds`（已借图书 ID 列表）。
+    *   **方法**：
+        1.  `canBorrow() const`（是否可借）
+        2.  `addBorrowedBook(string bookId)`（名下添加图书）
+        3.  `removeBorrowedBook(string bookId)`（名下移除图书）
+        4.  `display(std::ostream& os) const`（具体实现：打印读者及已借图书信息）
+        5.  `matches(const std::string& query) const`（具体实现：匹配读者 ID 或姓名）
+
+*   **`Librarian`（管理员）** —— 继承自 `Person`
+    *   **属性**：`privilegeLevel`（权限等级）。
+    *   **方法**：
+        1.  `getPrivilegeLevel() const`（获取权限）
+        2.  `canManageUsers() const`（是否可管理用户）
+        3.  `display(std::ostream& os) const`（具体实现：打印管理员工作信息）
+
+*   **`Book`（图书）** —— **多重继承自 `Displayable` 和 `Searchable`**
+    *   **属性**：`id`（唯一图书ID）、`title`（书名）、`author`（作者）、`keywords`（关键字）、`category`（类别）、`publisherInfo`（出版信息）、`location`（馆藏地）、`isBorrowed`（借阅状态）。
+    *   **方法**：
+        1.  `borrowBook()` / `returnBook()`（修改借书状态）
+        2.  `updateLocation(string newLoc)`（修改馆藏地）
+        3.  `display(std::ostream& os) const`（具体实现：打印图书详细信息）
+        4.  `matches(const std::string& query) const`（具体实现：不区分大小写匹配书名/作者/关键字）
+        5.  `operator==`（运算符重载：根据 ID 判断是否为同一本书）
+
+*   **`BorrowRecord`（借阅记录）** —— 继承自 `Displayable`
+    *   **属性**：`recordId`（记录ID）、`bookId`（图书ID）、`userId`（用户ID）、`borrowDate`（借书日期）、`dueDate`（应还日期）、`returnDate`（归还日期）、`isRenewed`（是否续借）。
+    *   **方法**：
+        1.  `isOverdue(string currentDate) const`（判断是否超期）
+        2.  `calculateOverdueDays(string currentDate) const`（计算超期天数）
+        3.  `renew(int days)`（续借操作，更新应还日期）
+        4.  `display(std::ostream& os) const`（具体实现：打印此条借阅记录）
+        5.  `operator<`（运算符重载：按借阅日期排序，用于统计）
+   
+### 3. 控制类与异常机制
+
+*   **`Library`（系统控制大脑）**
+    *   **属性**：`books`（图书容器）、`users`（读者容器）、`librarians`（管理员容器）、`records`（记录容器）。
+    *   **方法**（业务核心，异常抛出源头）：
+        1.  `login(id, password)`（验证登录）
+        2.  `borrowBook(userId, bookId)`（**可抛出异常**：未找到用户、未找到图书、图书已被借出、用户借阅超限）; `returnBook(userId, bookId)`（**可抛出异常**：未找到记录）
+        3.  CRUD 方法，管理图书和用户：`addBook`, `removeBook`, `addUser`, `removeUser`,`updateBook`
+        4.  查询方法：`searchBooks`, `getReaderRecords`, `getBookRecords`
+
+*   **自定义异常体系**（继承自 `std::runtime_error`）
+    *   `UserNotFoundException`（用户不存在异常）
+    *   `BookNotFoundException`（图书不存在异常）
+    *   `BookUnavailableException`（图书不可借异常）
+    *   `DuplicateIdException`（ID 冲突异常）
+    *   `RecordNotFoundException`
+    *   `InvalidInputException`
 
 ## 运算符重载
 为 `Displayable` 定义 `operator<<` 一次：
@@ -51,7 +117,7 @@ library_system/
 ```
 
 ## 开发阶段
-1. 锁作用域：持久化用文本/CSV（`users.txt`、`books.txt`、`records.txt`）；模糊搜索用不区分大小写的子串匹配
+1. 锁作用域：持久化用使用 | 分隔的 .txt 文件作为持久化格式,文本/CSV（`users.txt`、`books.txt`、`records.txt`）；模糊搜索用不区分大小写的子串匹配
 2. 领域模型：草绘类图
 3. 模块架构：按目录结构 + `Makefile`/`CMakeLists.txt`
 4. 接口定义：先写各 `.h`（完整签名、无函数体）
