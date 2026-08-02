@@ -84,7 +84,7 @@
 *   **自定义异常体系**（继承自 `std::runtime_error`）
     *   `UserNotFoundException`（用户不存在异常）
     *   `BookNotFoundException`（图书不存在异常）
-    *   `BookUnavailableException`（图书不可借异常）
+    *   `BorrowDeniedException`（借阅被拒绝异常）
     *   `DuplicateIdException`（ID 冲突异常）
     *   `RecordNotFoundException`
     *   `InvalidInputException`

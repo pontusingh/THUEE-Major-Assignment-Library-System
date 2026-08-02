@@ -17,11 +17,11 @@ public:
     ~BookNotFoundException() override = default;
 };
 
-class BookUnavailableException : public std::runtime_error {
+class BorrowDeniedException : public std::runtime_error {
 public:
-    BookUnavailableException() : std::runtime_error("图书不可借") {}
-    explicit BookUnavailableException(const std::string& msg) : std::runtime_error(msg) {}
-    ~BookUnavailableException() override = default;
+    BorrowDeniedException() : std::runtime_error("图书不可借") {}
+    explicit BorrowDeniedException(const std::string& msg) : std::runtime_error(msg) {}
+    ~BorrowDeniedException() override = default;
 };
 
 class DuplicateIdException : public std::runtime_error {
