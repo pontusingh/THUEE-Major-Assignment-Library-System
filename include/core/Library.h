@@ -13,7 +13,7 @@ enum class LoginRole { None, User, Librarian };
 
 class Library {
 public:
-    Library() = default;
+    Library();
 
     const std::vector<Book>& getBooks() const;
     const std::vector<User>& getUsers() const;

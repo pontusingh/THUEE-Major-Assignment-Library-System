@@ -44,3 +44,10 @@ public:
     explicit InvalidInputException(const std::string& msg) : std::runtime_error(msg) {}
     ~InvalidInputException() override = default;
 };
+
+class FileStorageException : public std::runtime_error {
+public:
+    FileStorageException() : std::runtime_error("文件读写失败") {}
+    explicit FileStorageException(const std::string& msg) : std::runtime_error(msg) {}
+    ~FileStorageException() override = default;
+};
