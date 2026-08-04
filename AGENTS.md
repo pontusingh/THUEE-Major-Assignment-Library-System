@@ -89,6 +89,21 @@
     *   `RecordNotFoundException`
     *   `InvalidInputException`
 
+### 4. 统计模块
+
+*   **`Statistics`（纯工具类）** —— 无任何成员状态，所有方法为 `static`。
+    *   **架构要点**：
+        1.  **职责单一（流水线）**：不做集合内检索；个人报告直接接收 `Library` 已过滤好的、仅属当前用户的 `BorrowRecord` 集合。
+        2.  **公共静态方法**：
+            - `getTopBooks(records, books, topN=5)`：全局最受欢迎图书（按借阅频次），返回 `vector<pair<Book,int>>`。
+            - `getTopUsers(records, users, topN=5)`：全局最活跃用户（按借阅书目数），返回 `vector<pair<User,int>>`。
+            - `getSystemAverageBorrowDuration(returnedRecords)`：全局平均借阅时长（double 天数），入参约定为已归还记录。
+            - `generateUserReport(userRecords, allBooks)`：生成个人读书报告，返回 `UserReadingReport`。
+        3.  **`struct UserReadingReport`**（公共嵌套结构，带默认值）：
+            `totalBorrowedCount`（累计借阅数）、`totalBorrowDays`（总借阅时长）、`averageBorrowDays`（平均借阅时长）、`favoriteCategory`（最偏好类别）、`longestBorrowedBook`（借阅最久的书名）。
+        4.  **私有静态辅助**：`dateToAbsoluteDays`（"YYYY-MM-DD" → 绝对天数）、`calculateDaysDifference`（两日期天数差）。
+    *   **借阅时长规则**：`generateUserReport` **仅统计已归还记录**（`returnDate` 为空即跳过），时长一律 `returnDate - borrowDate`。
+
 ## 运算符重载
 为 `Displayable` 定义 `operator<<` 一次：
 ```cpp
