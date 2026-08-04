@@ -23,10 +23,11 @@ private:
     void showUserMenu(const std::string& userId);
     void showAdminMenu();
 
-    //用户：处理图书查询，借还，记录，统计报告
+    //用户：处理图书查询，借还，续借，记录，统计报告
     void handleSearchBooks() const;
     void handleBorrow(const std::string& userId);
     void handleReturn(const std::string& userId);
+    void handleRenew(const std::string& userId);
     void handleMyRecords(const std::string& userId) const;
     void handleMyReport(const std::string& userId) const;
 

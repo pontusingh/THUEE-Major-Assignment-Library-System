@@ -25,9 +25,11 @@ public:
     //身份验证：按 id+password 校验，返回登录角色（用户/管理员/无）
     LoginRole login(const std::string& id, const std::string& password) const;
 
-    //借阅核心：借书（校验用户/图书/状态/额度，可抛异常）、还书（可抛异常）
+    //借阅核心：借书（校验用户/图书/状态/额度，可抛异常）、还书（可抛异常）、
+    //          续借（禁止已归还/已续借/已超期记录，可抛异常）
     void borrowBook(const std::string& userId, const std::string& bookId);
     void returnBook(const std::string& userId, const std::string& bookId);
+    void renewBook(const std::string& userId, const std::string& bookId, int days);
 
     //图书管理：新增、按id删除、按id整体更新（异常：ID冲突/图书不存在）
     void addBook(const Book& book);
