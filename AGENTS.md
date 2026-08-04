@@ -104,6 +104,14 @@
         4.  **私有静态辅助**：`dateToAbsoluteDays`（"YYYY-MM-DD" → 绝对天数）、`calculateDaysDifference`（两日期天数差）。
     *   **借阅时长规则**：`generateUserReport` **仅统计已归还记录**（`returnDate` 为空即跳过），时长一律 `returnDate - borrowDate`。
 
+## 持久化设计
+
+*   **`FileStorage`（纯工具类）**：`FileStorage() = delete;` 防实例化，全部 `static` 方法，仅持久化 Book/User/BorrowRecord 三组数据。
+*   **管理员为内置账号**：`Library` 构造时注入固定管理员（`admin`/`admin123`），不落盘、不可增删，无需 Librarian 持久化。
+*   **文件格式**：`data/` 下每类数据一个文件，每行一条记录、字段以 `|` 分隔；文本统一 UTF-8。
+*   **异常**：文件读写失败抛 `FileStorageException`（继承 `std::runtime_error`）；`load` 时文件不存在返回空集合，解析出错抛异常。
+*   **输入约束**：UI 录入字段校验含 `|` 或换行即抛 `InvalidInputException`，保证文件无需转义。
+
 ## 运算符重载
 为 `Displayable` 定义 `operator<<` 一次：
 ```cpp
