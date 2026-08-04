@@ -17,7 +17,7 @@ public:
 
     //getter
     int getMaxBorrowLimit() const;
-    int getCurrentBorrowCount() const;
+    int getCurrentBorrowCount() const { return static_cast<int>(borrowedBookIds_.size()); }
     const std::vector<std::string>& getBorrowedBookIds() const;
 
     //是否能借
@@ -33,7 +33,6 @@ public:
 
 private:
     int maxBorrowLimit_ = 5;
-    int currentBorrowCount_ = 0;
     std::vector<std::string> borrowedBookIds_;
     //一个可以动态改变大小的字符串数组（列表）
 };

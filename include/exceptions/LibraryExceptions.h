@@ -3,51 +3,58 @@
 #include <stdexcept>
 #include <string>
 
-class UserNotFoundException : public std::runtime_error {
+class LibraryException : public std::runtime_error {
 public:
-    UserNotFoundException() : std::runtime_error("用户不存在") {}
-    explicit UserNotFoundException(const std::string& msg) : std::runtime_error(msg) {}
+    LibraryException() : std::runtime_error("系统异常") {}
+    explicit LibraryException(const std::string& msg) : std::runtime_error(msg) {}
+    ~LibraryException() override = default;
+};
+
+class UserNotFoundException : public LibraryException {
+public:
+    UserNotFoundException() : LibraryException("用户不存在") {}
+    explicit UserNotFoundException(const std::string& msg) : LibraryException(msg) {}
     ~UserNotFoundException() override = default;
 };
 
-class BookNotFoundException : public std::runtime_error {
+class BookNotFoundException : public LibraryException {
 public:
-    BookNotFoundException() : std::runtime_error("图书不存在") {}
-    explicit BookNotFoundException(const std::string& msg) : std::runtime_error(msg) {}
+    BookNotFoundException() : LibraryException("图书不存在") {}
+    explicit BookNotFoundException(const std::string& msg) : LibraryException(msg) {}
     ~BookNotFoundException() override = default;
 };
 
-class BorrowDeniedException : public std::runtime_error {
+class BorrowDeniedException : public LibraryException {
 public:
-    BorrowDeniedException() : std::runtime_error("图书不可借") {}
-    explicit BorrowDeniedException(const std::string& msg) : std::runtime_error(msg) {}
+    BorrowDeniedException() : LibraryException("图书不可借") {}
+    explicit BorrowDeniedException(const std::string& msg) : LibraryException(msg) {}
     ~BorrowDeniedException() override = default;
 };
 
-class DuplicateIdException : public std::runtime_error {
+class DuplicateIdException : public LibraryException {
 public:
-    DuplicateIdException() : std::runtime_error("ID 已存在") {}
-    explicit DuplicateIdException(const std::string& msg) : std::runtime_error(msg) {}
+    DuplicateIdException() : LibraryException("ID 已存在") {}
+    explicit DuplicateIdException(const std::string& msg) : LibraryException(msg) {}
     ~DuplicateIdException() override = default;
 };
 
-class RecordNotFoundException : public std::runtime_error {
+class RecordNotFoundException : public LibraryException {
 public:
-    RecordNotFoundException() : std::runtime_error("记录不存在") {}
-    explicit RecordNotFoundException(const std::string& msg) : std::runtime_error(msg) {}
+    RecordNotFoundException() : LibraryException("记录不存在") {}
+    explicit RecordNotFoundException(const std::string& msg) : LibraryException(msg) {}
     ~RecordNotFoundException() override = default;
 };
 
-class InvalidInputException : public std::runtime_error {
+class InvalidInputException : public LibraryException {
 public:
-    InvalidInputException() : std::runtime_error("输入非法") {}
-    explicit InvalidInputException(const std::string& msg) : std::runtime_error(msg) {}
+    InvalidInputException() : LibraryException("输入非法") {}
+    explicit InvalidInputException(const std::string& msg) : LibraryException(msg) {}
     ~InvalidInputException() override = default;
 };
 
-class FileStorageException : public std::runtime_error {
+class FileStorageException : public LibraryException {
 public:
-    FileStorageException() : std::runtime_error("文件读写失败") {}
-    explicit FileStorageException(const std::string& msg) : std::runtime_error(msg) {}
+    FileStorageException() : LibraryException("文件读写失败") {}
+    explicit FileStorageException(const std::string& msg) : LibraryException(msg) {}
     ~FileStorageException() override = default;
 };
