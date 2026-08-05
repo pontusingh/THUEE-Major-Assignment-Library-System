@@ -1,0 +1,62 @@
+[
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\main.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\main.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/main.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/main.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\core\\Library.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\core\\Library.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/core/Library.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/core/Library.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\models\\Book.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\models\\Book.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/models/Book.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/models/Book.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\models\\BorrowRecord.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\models\\BorrowRecord.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/models/BorrowRecord.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/models/BorrowRecord.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\models\\Librarian.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\models\\Librarian.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/models/Librarian.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/models/Librarian.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\models\\Person.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\models\\Person.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/models/Person.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/models/Person.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\models\\User.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\models\\User.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/models/User.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/models/User.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\stats\\Statistics.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\stats\\Statistics.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/stats/Statistics.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/stats/Statistics.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\storage\\FileStorage.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\storage\\FileStorage.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/storage/FileStorage.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/storage/FileStorage.cpp.obj"
+},
+{
+  "directory": "D:/projects/Major-Assignment-Library-System/build",
+  "command": "D:\\msys2\\ucrt64\\bin\\g++.exe -ID:/projects/Major-Assignment-Library-System/include -ID:/projects/Major-Assignment-Library-System/include/interfaces -ID:/projects/Major-Assignment-Library-System/include/models -ID:/projects/Major-Assignment-Library-System/include/core -ID:/projects/Major-Assignment-Library-System/include/stats -ID:/projects/Major-Assignment-Library-System/include/storage -ID:/projects/Major-Assignment-Library-System/include/exceptions -ID:/projects/Major-Assignment-Library-System/include/ui -g -std=gnu++17 -o CMakeFiles\\LibrarySystem.dir\\src\\ui\\ConsoleUI.cpp.obj -c D:\\projects\\Major-Assignment-Library-System\\src\\ui\\ConsoleUI.cpp",
+  "file": "D:/projects/Major-Assignment-Library-System/src/ui/ConsoleUI.cpp",
+  "output": "D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir/src/ui/ConsoleUI.cpp.obj"
+}
+]

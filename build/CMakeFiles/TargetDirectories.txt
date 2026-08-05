@@ -1,0 +1,3 @@
+D:/projects/Major-Assignment-Library-System/build/CMakeFiles/LibrarySystem.dir
+D:/projects/Major-Assignment-Library-System/build/CMakeFiles/edit_cache.dir
+D:/projects/Major-Assignment-Library-System/build/CMakeFiles/rebuild_cache.dir
