@@ -14,6 +14,8 @@ const std::string& Person::getName() const { return name_; }
 
 const std::string& Person::getEmail() const { return email_; }
 
+const std::string& Person::getPassword() const { return password_; }
+
 void Person::setPassword(const std::string& password) { password_ = password; }
 
 void Person::setEmail(const std::string& email) { email_ = email; }

@@ -22,6 +22,7 @@ public:
     bool isRenewed() const;
 
     void setReturnDate(const std::string& returnDate);
+    void setRenewed(bool renewed);
     bool isReturned() const;
 
     bool isOverdue(const std::string& currentDate) const;

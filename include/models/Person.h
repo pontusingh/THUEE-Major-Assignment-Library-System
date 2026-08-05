@@ -16,6 +16,7 @@ class Person : public Displayable {
         const std::string& getId() const;
         const std::string& getName() const;
         const std::string& getEmail() const;
+        const std::string& getPassword() const;
 
         //setter修改器
         void setPassword(const std::string& password);

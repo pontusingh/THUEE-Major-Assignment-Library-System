@@ -52,6 +52,8 @@ bool BorrowRecord::isRenewed() const { return isRenewed_; }
 
 void BorrowRecord::setReturnDate(const std::string& returnDate) { returnDate_ = returnDate; }
 
+void BorrowRecord::setRenewed(bool renewed) { isRenewed_ = renewed; }
+
 bool BorrowRecord::isReturned() const { return !returnDate_.empty(); }
 
 bool BorrowRecord::isOverdue(const std::string& currentDate) const {
