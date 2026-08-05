@@ -1,1 +1,14 @@
 # ninja log v7
+1	181	8076405169095892	build.ninja	105e1d3b93492
+1	181	8076405169095892	D:/projects/Major-Assignment-Library-System/build/cmake_install.cmake	105e1d3b93492
+31	623	8076405169926011	CMakeFiles/LibrarySystem.dir/src/models/Librarian.cpp.obj	9263f0d6dac26a83
+35	631	8076405169969307	CMakeFiles/LibrarySystem.dir/src/models/Person.cpp.obj	8c1630326318272b
+24	656	8076405169850103	CMakeFiles/LibrarySystem.dir/src/models/Book.cpp.obj	2e4ec827b114c542
+16	682	8076405169777898	CMakeFiles/LibrarySystem.dir/main.cpp.obj	96d94b4c8cd0df8
+27	709	8076405169890116	CMakeFiles/LibrarySystem.dir/src/models/BorrowRecord.cpp.obj	3e8844a8065c6b08
+39	734	8076405170013725	CMakeFiles/LibrarySystem.dir/src/models/User.cpp.obj	96653805ca7e0faa
+52	831	8076405170142518	CMakeFiles/LibrarySystem.dir/src/ui/ConsoleUI.cpp.obj	180b3015fd434fc7
+48	885	8076405170098551	CMakeFiles/LibrarySystem.dir/src/storage/FileStorage.cpp.obj	5e042e969b4bcfdf
+20	980	8076405169820066	CMakeFiles/LibrarySystem.dir/src/core/Library.cpp.obj	62a5443b78ca9fe3
+44	1045	8076405170061116	CMakeFiles/LibrarySystem.dir/src/stats/Statistics.cpp.obj	e34a32704908e78
+1045	1292	8076405180070205	LibrarySystem.exe	a5a6b33cf71839e9

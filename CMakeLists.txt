@@ -24,4 +24,4 @@ add_executable(LibrarySystem main.cpp ${SRC_FILES})
 # 构建后把 data/ 目录复制到可执行文件旁，保证运行时相对路径 data/*.txt 自洽
 add_custom_command(TARGET LibrarySystem POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR>/data)
+            ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:LibrarySystem>/data)

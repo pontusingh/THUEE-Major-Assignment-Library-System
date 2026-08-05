@@ -14,6 +14,7 @@
 		"commands" : 
 		[
 			"add_executable",
+			"add_custom_command",
 			"include_directories"
 		],
 		"files" : 
@@ -34,47 +35,53 @@
 			{
 				"command" : 1,
 				"file" : 0,
+				"line" : 25,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
 				"line" : 9,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 10,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 11,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 12,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 13,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 14,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 15,
 				"parent" : 0
 			},
 			{
-				"command" : 1,
+				"command" : 2,
 				"file" : 0,
 				"line" : 16,
 				"parent" : 0
@@ -98,35 +105,35 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"path" : "D:/projects/Major-Assignment-Library-System/include"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/interfaces"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/models"
 				},
 				{
-					"backtrace" : 5,
+					"backtrace" : 6,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/core"
 				},
 				{
-					"backtrace" : 6,
+					"backtrace" : 7,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/stats"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/storage"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/exceptions"
 				},
 				{
-					"backtrace" : 9,
+					"backtrace" : 10,
 					"path" : "D:/projects/Major-Assignment-Library-System/include/ui"
 				}
 			],
@@ -172,6 +179,13 @@
 	},
 	"name" : "LibrarySystem",
 	"nameOnDisk" : "LibrarySystem.exe",
+	"orderDependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "LibrarySystem::@6890427a1f51a3e7e1df"
+		}
+	],
 	"paths" : 
 	{
 		"build" : ".",

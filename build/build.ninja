@@ -152,7 +152,7 @@ build LibrarySystem.exe: CXX_EXECUTABLE_LINKER__LibrarySystem_Debug CMakeFiles/L
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\LibrarySystem.dir
-  POST_BUILD = cd .
+  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D D:\projects\Major-Assignment-Library-System\build && D:\msys2\ucrt64\bin\cmake.exe -E copy_directory D:/projects/Major-Assignment-Library-System/data D:/projects/Major-Assignment-Library-System/build/data"
   PRE_LINK = cd .
   TARGET_FILE = LibrarySystem.exe
   TARGET_IMPLIB = libLibrarySystem.dll.a
