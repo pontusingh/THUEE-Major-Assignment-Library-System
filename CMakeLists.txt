@@ -20,3 +20,8 @@ file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
 # 将 main.cpp 和收集到的 src 文件编译成可执行程序
 add_executable(LibrarySystem main.cpp ${SRC_FILES})
+
+# 构建后把 data/ 目录复制到可执行文件旁，保证运行时相对路径 data/*.txt 自洽
+add_custom_command(TARGET LibrarySystem POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR>/data)
