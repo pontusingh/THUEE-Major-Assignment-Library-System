@@ -2,12 +2,22 @@
 
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "core/Library.h"
 #include "exceptions/LibraryExceptions.h"
 #include "storage/FileStorage.h"
 #include "ui/ConsoleUI.h"
 
 int main() {
+#ifdef _WIN32
+    // 将控制台输入/输出代码页切到 UTF-8(65001)，使 UTF-8 中文正常显示
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+
     Library lib;
 
     // 每个集合独立加载：任一集合损坏仅警告并跳过该集合，其余正常加载
