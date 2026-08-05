@@ -280,3 +280,7 @@ std::vector<BorrowRecord> Library::getBookRecords(const std::string& bookId) con
     }
     return result;
 }
+
+void Library::importRecords(const std::vector<BorrowRecord>& records) {
+    records_.insert(records_.end(), records.begin(), records.end());
+}

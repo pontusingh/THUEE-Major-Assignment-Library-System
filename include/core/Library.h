@@ -51,6 +51,9 @@ public:
     std::vector<BorrowRecord> getReaderRecords(const std::string& userId) const;
     std::vector<BorrowRecord> getBookRecords(const std::string& bookId) const;
 
+    //启动时注入持久化加载的借阅记录（仅追加，不校验业务规则）
+    void importRecords(const std::vector<BorrowRecord>& records);
+
 private:
     //数据容器：图书、读者、内置管理员、借阅记录
     std::vector<Book> books_;
