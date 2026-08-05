@@ -12,8 +12,8 @@ public:
 
 private:
     //辅助方法，安全读取整行文本/整数
-    std::string readLine(const std::string& prompt);
-    int readInt(const std::string& prompt);
+    std::string readLine(const std::string& prompt) const;
+    int readInt(const std::string& prompt) const;
 
     //手动触发持久化
     void persist() const;
