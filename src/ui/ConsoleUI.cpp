@@ -132,11 +132,10 @@ void ConsoleUI::showAdminMenu(const std::string& adminId) {
         std::cout << "\n----- 管理员菜单 -----\n"
                   << "1. 图书管理\n"
                   << "2. 用户管理" << (canManage ? "" : " (无权限)") << "\n"
-                  << "3. 借阅记录\n"
-                  << "4. 统计信息\n"
-                  << "5. 我的信息\n"
-                  << "6. 查询馆员\n"
-                  << "7. 馆员管理" << (isTop ? "" : " (无权限)") << "\n"
+                  << "3. 馆员管理" << (isTop ? "" : " (无权限)") << "\n"
+                  << "4. 借阅记录\n"
+                  << "5. 统计信息\n"
+                  << "6. 我的信息\n"
                   << "0. 退出登录\n"
                   << "请选择: ";
         const int choice = readInt("");
@@ -145,7 +144,7 @@ void ConsoleUI::showAdminMenu(const std::string& adminId) {
             std::cout << "无权限：仅 2/3 级馆员可管理用户。\n";
             continue;
         }
-        if (choice == 7 && !isTop) {
+        if (choice == 3 && !isTop) {
             std::cout << "无权限：仅 3 级馆员可管理馆员。\n";
             continue;
         }
@@ -153,11 +152,10 @@ void ConsoleUI::showAdminMenu(const std::string& adminId) {
             switch (choice) {
                 case 1: handleBookManagement(); break;
                 case 2: handleUserManagement(); break;
-                case 3: handleRecordsMenu(); break;
-                case 4: handleStatistics(); break;
-                case 5: handleMyLibrarianInfo(adminId); break;
-                case 6: handleListLibrarians(); break;
-                case 7: handleLibrarianManagement(); break;
+                case 3: handleLibrarianManagement(); break;
+                case 4: handleRecordsMenu(); break;
+                case 5: handleStatistics(); break;
+                case 6: handleMyLibrarianInfo(adminId); break;
                 default: std::cout << "无效选项。\n"; break;
             }
         } catch (const LibraryException& e) {
@@ -422,6 +420,7 @@ void ConsoleUI::handleLibrarianManagement() {
         std::cout << "\n----- 馆员管理 -----\n"
                   << "1. 新增馆员\n"
                   << "2. 删除馆员\n"
+                  << "3. 查询馆员\n"
                   << "0. 返回\n"
                   << "请选择: ";
         const int choice = readInt("");
@@ -446,6 +445,9 @@ void ConsoleUI::handleLibrarianManagement() {
                     std::cout << "删除成功。\n";
                     break;
                 }
+                case 3:
+                    handleListLibrarians();
+                    break;
                 default:
                     std::cout << "无效选项。\n";
                     break;
