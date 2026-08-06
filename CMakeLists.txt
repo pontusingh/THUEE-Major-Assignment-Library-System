@@ -14,6 +14,7 @@ include_directories(include/stats)
 include_directories(include/storage)
 include_directories(include/exceptions)
 include_directories(include/ui)
+include_directories(include/utils)
 
 # 自动收集 src 目录及其所有子目录下的 .cpp 文件
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
