@@ -47,7 +47,11 @@ void BorrowRecord::display(std::ostream& os) const {
        << ", 借书日期=" << borrowDate_
        << ", 应还日期=" << dueDate_
        << ", 归还日期=" << (returnDate_.empty() ? "未归还" : returnDate_)
-       << (isRenewed_ ? ", 已续借" : "") << "]\n";
+       << (isRenewed_ ? ", 已续借" : "");
+    const std::string today = Date::todayStr();
+    if (isOverdue(today))
+        os << ", 已超期 " << calculateOverdueDays(today) << " 天";
+    os << "]\n";
 }
 
 bool BorrowRecord::operator<(const BorrowRecord& other) const {
