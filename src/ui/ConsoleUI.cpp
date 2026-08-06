@@ -7,6 +7,7 @@
 
 #include "models/Book.h"
 #include "models/BorrowRecord.h"
+#include "models/Librarian.h"
 #include "models/User.h"
 #include "stats/Statistics.h"
 #include "storage/FileStorage.h"
@@ -16,6 +17,7 @@ namespace {
 const std::string BOOKS_FILE = "data/books.txt";
 const std::string USERS_FILE = "data/users.txt";
 const std::string RECORDS_FILE = "data/records.txt";
+const std::string LIBRARIANS_FILE = "data/librarians.txt";
 constexpr int RENEW_DAYS = 14;
 
 std::string trim(const std::string& s) {
@@ -58,6 +60,7 @@ void ConsoleUI::persist() const {
     FileStorage::saveBooks(BOOKS_FILE, library_.getBooks());
     FileStorage::saveUsers(USERS_FILE, library_.getUsers());
     FileStorage::saveRecords(RECORDS_FILE, library_.getRecords());
+    FileStorage::saveLibrarians(LIBRARIANS_FILE, library_.getLibrarians());
 }
 
 void ConsoleUI::run() {
@@ -77,7 +80,7 @@ void ConsoleUI::loginLoop() {
     if (role == LoginRole::User) {
         showUserMenu(id);
     } else if (role == LoginRole::Librarian) {
-        showAdminMenu();
+        showAdminMenu(id);
     } else {
         std::cout << "登录失败：ID 或密码错误。\n";
     }
@@ -115,24 +118,46 @@ void ConsoleUI::showUserMenu(const std::string& userId) {
     }
 }
 
-void ConsoleUI::showAdminMenu() {
+void ConsoleUI::showAdminMenu(const std::string& adminId) {
     std::cout << "\n您好，管理员！\n";
     while (true) {
+        const Librarian* self = library_.findLibrarian(adminId);
+        if (!self) {
+            std::cout << "管理员账号不存在。\n";
+            return;
+        }
+        const bool canManage = self->canManageUsers();
+        const bool isTop = self->getPrivilegeLevel() == 3;
+
         std::cout << "\n----- 管理员菜单 -----\n"
                   << "1. 图书管理\n"
-                  << "2. 用户管理\n"
+                  << "2. 用户管理" << (canManage ? "" : " (无权限)") << "\n"
                   << "3. 借阅记录\n"
                   << "4. 统计信息\n"
+                  << "5. 我的信息\n"
+                  << "6. 查询馆员\n"
+                  << "7. 馆员管理" << (isTop ? "" : " (无权限)") << "\n"
                   << "0. 退出登录\n"
                   << "请选择: ";
         const int choice = readInt("");
         if (choice == 0) return;
+        if (choice == 2 && !canManage) {
+            std::cout << "无权限：仅 2/3 级馆员可管理用户。\n";
+            continue;
+        }
+        if (choice == 7 && !isTop) {
+            std::cout << "无权限：仅 3 级馆员可管理馆员。\n";
+            continue;
+        }
         try {
             switch (choice) {
                 case 1: handleBookManagement(); break;
                 case 2: handleUserManagement(); break;
                 case 3: handleRecordsMenu(); break;
                 case 4: handleStatistics(); break;
+                case 5: handleMyLibrarianInfo(adminId); break;
+                case 6: handleListLibrarians(); break;
+                case 7: handleLibrarianManagement(); break;
                 default: std::cout << "无效选项。\n"; break;
             }
         } catch (const LibraryException& e) {
@@ -345,6 +370,80 @@ void ConsoleUI::handleUserManagement() {
                         break;
                     }
                     for (const auto& u : result) std::cout << u;
+                    break;
+                }
+                default:
+                    std::cout << "无效选项。\n";
+                    break;
+            }
+        } catch (const LibraryException& e) {
+            std::cout << "操作失败：" << e.what() << "\n";
+        }
+    }
+}
+
+void ConsoleUI::handleMyLibrarianInfo(const std::string& adminId) {
+    while (true) {
+        const Librarian* self = library_.findLibrarian(adminId);
+        if (!self) throw UserNotFoundException();
+        std::cout << "\n===== 我的信息 =====\n";
+        self->display(std::cout);
+        std::cout << "1. 修改信息\n"
+                  << "0. 返回\n"
+                  << "请选择: ";
+        const int choice = readInt("");
+        if (choice == 0) return;
+        if (choice != 1) {
+            std::cout << "无效选项。\n";
+            continue;
+        }
+        const std::string email = readLine("新邮箱 (空格不修改): ");
+        const std::string password = readLine("新密码 (空格不修改): ");
+        Librarian newInfo(adminId, self->getName(), password, email,
+                          self->getPrivilegeLevel());
+        library_.updateLibrarian(adminId, newInfo);
+        persist();
+        std::cout << "更新成功。\n";
+    }
+}
+
+void ConsoleUI::handleListLibrarians() const {
+    const auto& librarians = library_.getLibrarians();
+    if (librarians.empty()) {
+        std::cout << "暂无馆员。\n";
+        return;
+    }
+    std::cout << "===== 馆员列表 =====\n";
+    for (const auto& l : librarians) std::cout << l;
+}
+
+void ConsoleUI::handleLibrarianManagement() {
+    while (true) {
+        std::cout << "\n----- 馆员管理 -----\n"
+                  << "1. 新增馆员\n"
+                  << "2. 删除馆员\n"
+                  << "0. 返回\n"
+                  << "请选择: ";
+        const int choice = readInt("");
+        if (choice == 0) return;
+        try {
+            switch (choice) {
+                case 1: {
+                    const std::string id = readLine("馆员 ID: ");
+                    const std::string name = readLine("姓名: ");
+                    const std::string password = readLine("密码: ");
+                    const std::string email = readLine("邮箱: ");
+                    const int level = readInt("权限等级 (1~2): ");
+                    library_.addLibrarian(Librarian(id, name, password, email, level));
+                    persist();
+                    std::cout << "添加成功。\n";
+                    break;
+                }
+                case 2: {
+                    const std::string id = readLine("输入要删除的馆员 ID: ");
+                    library_.removeLibrarian(id);
+                    persist();
+                    std::cout << "删除成功。\n";
                     break;
                 }
                 default:

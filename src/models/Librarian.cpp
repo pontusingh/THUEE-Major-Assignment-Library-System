@@ -14,7 +14,7 @@ bool Librarian::canManageUsers() const { return privilegeLevel_ > 1; }
 void Librarian::display(std::ostream& os) const {
     os << "管理员[ID=" << getId()
        << ", 姓名=" << getName()
-       << ", 权限等级=" << privilegeLevel_
+       << ", 权限等级=" << getPrivilegeLevel()
        << (canManageUsers() ? "(可管理用户)" : "(不可管理用户)")
        << "]\n";
 }

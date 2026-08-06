@@ -42,6 +42,19 @@ int main() {
         std::cerr << "警告：借阅记录加载失败，已跳过。原因: " << e.what() << "\n";
     }
 
+    try {
+        auto librarians = FileStorage::loadLibrarians("data/librarians.txt");
+        for (const auto& l : librarians) {
+            try {
+                lib.addLibrarian(l);
+            } catch (const DuplicateIdException&) {
+                // 与内置 admin 或已加载馆员冲突时静默跳过
+            }
+        }
+    } catch (const LibraryException& e) {
+        std::cerr << "警告：馆员数据加载失败，已跳过。原因: " << e.what() << "\n";
+    }
+
     ConsoleUI ui(lib);
     ui.run();
     return 0;

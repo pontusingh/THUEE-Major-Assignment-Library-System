@@ -21,7 +21,7 @@ private:
     //登录，区分用户和管理
     void loginLoop();
     void showUserMenu(const std::string& userId);
-    void showAdminMenu();
+    void showAdminMenu(const std::string& adminId);
 
     //用户：处理图书查询，借还，续借，记录，统计报告
     void handleSearchBooks() const;
@@ -38,6 +38,9 @@ private:
     void handleRecordsMenu() const;
     void handleAllRecords() const;
     void handleStatistics() const;
+    void handleMyLibrarianInfo(const std::string& adminId);
+    void handleListLibrarians() const;
+    void handleLibrarianManagement();
 
     Library& library_;
 };

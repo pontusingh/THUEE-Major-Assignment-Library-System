@@ -176,6 +176,7 @@ void Library::updateBook(const std::string& bookId, const Book& newInfo) {
 void Library::addUser(const User& user) {
     validateId(user.getId());
     if (findUser(user.getId())) throw DuplicateIdException();
+    if (findLibrarian(user.getId())) throw DuplicateIdException();
     users_.push_back(user);
 }
 
@@ -203,6 +204,48 @@ void Library::updateUser(const std::string& userId, const User& newInfo) {
     // 姓名、借阅上限、已借列表、id 均保持不变；空白输入（空格/回车）表示不修改
     if (!newInfo.getEmail().empty() && newInfo.getEmail() != " ") user->setEmail(newInfo.getEmail());
     if (!newInfo.getPassword().empty() && newInfo.getPassword() != " ") user->setPassword(newInfo.getPassword());
+}
+
+const Librarian* Library::findLibrarian(const std::string& id) const {
+    for (size_t i = 0; i < librarians_.size(); ++i) {
+        if (librarians_[i].getId() == id) return &librarians_[i];
+    }
+    return nullptr;
+}
+
+void Library::addLibrarian(const Librarian& librarian) {
+    validateId(librarian.getId());
+    if (librarian.getPrivilegeLevel() < 1 || librarian.getPrivilegeLevel() > 2)
+        throw InvalidInputException("只能新增 1~2 级馆员");
+    if (findLibrarian(librarian.getId())) throw DuplicateIdException();
+    if (findUser(librarian.getId())) throw DuplicateIdException();
+    librarians_.push_back(librarian);
+}
+
+void Library::removeLibrarian(const std::string& id) {
+    const Librarian* target = findLibrarian(id);
+    if (!target) throw UserNotFoundException();
+    if (id == "admin") throw BorrowDeniedException("内置 admin 不可删除");
+    if (target->getPrivilegeLevel() == 3) throw BorrowDeniedException("不可删除 3 级馆员");
+    for (size_t i = 0; i < librarians_.size(); ++i) {
+        if (librarians_[i].getId() == id) {
+            librarians_.erase(librarians_.begin() + i);
+            return;
+        }
+    }
+}
+
+void Library::updateLibrarian(const std::string& id, const Librarian& newInfo) {
+    Librarian* target = nullptr;
+    for (size_t i = 0; i < librarians_.size(); ++i) {
+        if (librarians_[i].getId() == id) {
+            target = &librarians_[i];
+            break;
+        }
+    }
+    if (!target) throw UserNotFoundException();
+    if (!newInfo.getEmail().empty() && newInfo.getEmail() != " ") target->setEmail(newInfo.getEmail());
+    if (!newInfo.getPassword().empty() && newInfo.getPassword() != " ") target->setPassword(newInfo.getPassword());
 }
 
 std::vector<Book> Library::searchBooks(const std::string& query) const {

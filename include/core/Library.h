@@ -41,11 +41,17 @@ public:
     void removeUser(const std::string& userId);
     void updateUser(const std::string& userId, const User& newInfo);
 
+    //馆员管理：新增（异常：ID冲突）、按id删除（禁止删内置admin）、按id更新邮箱密码
+    void addLibrarian(const Librarian& librarian);
+    void removeLibrarian(const std::string& id);
+    void updateLibrarian(const std::string& id, const Librarian& newInfo);
+    
     //查询：模糊匹配返回副本列表，按id精确查找返回指针（未找到返回nullptr）
     std::vector<Book> searchBooks(const std::string& query) const;
     std::vector<User> searchUsers(const std::string& query) const;
     const Book* findBook(const std::string& bookId) const;
     const User* findUser(const std::string& userId) const;
+    const Librarian* findLibrarian(const std::string& id) const;
 
     //历史查询：某读者的全部借阅记录、某图书的全部借阅记录
     std::vector<BorrowRecord> getReaderRecords(const std::string& userId) const;

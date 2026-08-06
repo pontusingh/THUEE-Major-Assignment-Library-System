@@ -130,3 +130,36 @@ void FileStorage::saveRecords(const std::string& filePath,
             << (r.isRenewed() ? "1" : "0") << '\n';
     }
 }
+
+// ========== 馆员 ==========
+
+std::vector<Librarian> FileStorage::loadLibrarians(const std::string& filePath) {
+    std::ifstream in(filePath, std::ios::binary);
+    if (!in) return {};
+
+    std::vector<Librarian> librarians;
+    std::string line;
+    while (std::getline(in, line)) {
+        if (line.empty()) continue;
+        const auto fields = split(line, '|');
+        if (fields.size() != 5) throw FileStorageException("馆员数据格式错误");
+        int level = 0;
+        try {
+            level = std::stoi(fields[4]);
+        } catch (const std::exception&) {
+            throw FileStorageException("馆员权限等级格式错误");
+        }
+        librarians.emplace_back(fields[0], fields[1], fields[2], fields[3], level);
+    }
+    return librarians;
+}
+
+void FileStorage::saveLibrarians(const std::string& filePath,
+                                 const std::vector<Librarian>& librarians) {
+    std::ofstream out(filePath, std::ios::binary | std::ios::trunc);
+    if (!out) throw FileStorageException("无法打开馆员数据文件");
+    for (const auto& l : librarians) {
+        out << l.getId() << '|' << l.getName() << '|' << l.getPassword() << '|'
+            << l.getEmail() << '|' << l.getPrivilegeLevel() << '\n';
+    }
+}

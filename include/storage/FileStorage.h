@@ -3,6 +3,7 @@
 #include <string>
 #include "models/Book.h"
 #include "models/User.h"
+#include "models/Librarian.h"
 #include "models/BorrowRecord.h"
 
 class FileStorage {
@@ -21,6 +22,10 @@ public:
     // 3. 借阅记录数据读写接口
     static std::vector<BorrowRecord> loadRecords(const std::string& filePath);
     static void saveRecords(const std::string& filePath, const std::vector<BorrowRecord>& records);
+
+    // 4. 馆员数据读写接口
+    static std::vector<Librarian> loadLibrarians(const std::string& filePath);
+    static void saveLibrarians(const std::string& filePath, const std::vector<Librarian>& librarians);
 
 private:
     // 辅助方法：将一行文本按指定分隔符拆分成字段
