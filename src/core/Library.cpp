@@ -230,9 +230,10 @@ void Library::updateUser(const std::string& userId, const User& newInfo) {
     }
     if (!user) throw UserNotFoundException();
 
-    // 仅支持更新邮箱（User 无 setName/setMaxBorrowLimit setter）；
-    // 姓名、借阅上限、已借列表、id 均保持不变
-    if (!newInfo.getEmail().empty()) user->setEmail(newInfo.getEmail());
+    // 支持更新邮箱和密码（User 无 setName/setMaxBorrowLimit setter）；
+    // 姓名、借阅上限、已借列表、id 均保持不变；空白输入（空格/回车）表示不修改
+    if (!newInfo.getEmail().empty() && newInfo.getEmail() != " ") user->setEmail(newInfo.getEmail());
+    if (!newInfo.getPassword().empty() && newInfo.getPassword() != " ") user->setPassword(newInfo.getPassword());
 }
 
 std::vector<Book> Library::searchBooks(const std::string& query) const {

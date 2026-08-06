@@ -268,7 +268,7 @@ void ConsoleUI::handleUserManagement() {
         std::cout << "\n----- 用户管理 -----\n"
                   << "1. 添加用户\n"
                   << "2. 删除用户\n"
-                  << "3. 更新邮箱\n"
+                  << "3. 修改用户信息\n"
                   << "4. 查询用户\n"
                   << "0. 返回\n"
                   << "请选择: ";
@@ -301,8 +301,9 @@ void ConsoleUI::handleUserManagement() {
                         std::cout << "用户不存在。\n";
                         break;
                     }
-                    const std::string email = readLine("新邮箱 (回车不修改): ");
-                    User newInfo(id, user->getName(), user->getPassword(), email,
+                    const std::string email = readLine("新邮箱 (空格不修改): ");
+                    const std::string password = readLine("新密码 (空格不修改): ");
+                    User newInfo(id, user->getName(), password, email,
                                  user->getMaxBorrowLimit());
                     library_.updateUser(id, newInfo);
                     persist();
