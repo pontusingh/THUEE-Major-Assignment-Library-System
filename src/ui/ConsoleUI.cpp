@@ -92,7 +92,8 @@ void ConsoleUI::showUserMenu(const std::string& userId) {
                   << "3. 还书\n"
                   << "4. 续借\n"
                   << "5. 我的借阅记录\n"
-                  << "6. 我的读书报告\n"
+                   << "6. 我的读书报告\n"
+                   << "7. 我的信息\n"
                   << "0. 退出登录\n"
                   << "请选择: ";
         const int choice = readInt("");
@@ -105,6 +106,7 @@ void ConsoleUI::showUserMenu(const std::string& userId) {
                 case 4: handleRenew(userId); break;
                 case 5: handleMyRecords(userId); break;
                 case 6: handleMyReport(userId); break;
+                case 7: handleMyInfo(userId); break;
                 default: std::cout << "无效选项。\n"; break;
             }
         } catch (const LibraryException& e) {
@@ -192,6 +194,30 @@ void ConsoleUI::handleMyReport(const std::string& userId) const {
               << "\n"
               << "借阅最久的书: "
               << (rep.longestBorrowedBook.empty() ? "无" : rep.longestBorrowedBook) << "\n";
+}
+
+void ConsoleUI::handleMyInfo(const std::string& userId) {
+    while (true) {
+        const User* user = library_.findUser(userId);
+        if (!user) throw UserNotFoundException();
+        std::cout << "\n===== 我的信息 =====\n";
+        user->display(std::cout);
+        std::cout << "1. 修改信息\n"
+                  << "0. 返回\n"
+                  << "请选择: ";
+        const int choice = readInt("");
+        if (choice == 0) return;
+        if (choice != 1) {
+            std::cout << "无效选项。\n";
+            continue;
+        }
+        const std::string email = readLine("新邮箱 (空格不修改): ");
+        const std::string password = readLine("新密码 (空格不修改): ");
+        User newInfo(userId, user->getName(), password, email, user->getMaxBorrowLimit());
+        library_.updateUser(userId, newInfo);
+        persist();
+        std::cout << "更新成功。\n";
+    }
 }
 
 void ConsoleUI::handleBookManagement() {

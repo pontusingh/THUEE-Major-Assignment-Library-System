@@ -30,6 +30,7 @@ private:
     void handleRenew(const std::string& userId);
     void handleMyRecords(const std::string& userId) const;
     void handleMyReport(const std::string& userId) const;
+    void handleMyInfo(const std::string& userId);
 
     //管理：管理书目，用户，记录，统计数据
     void handleBookManagement();
