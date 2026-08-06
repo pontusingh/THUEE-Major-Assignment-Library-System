@@ -12,11 +12,12 @@
 #include "ui/ConsoleUI.h"
 
 int main() {
-#ifdef _WIN32
+
     // 将控制台输入/输出代码页切到 UTF-8(65001)，使 UTF-8 中文正常显示
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-#endif
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
 
     Library lib;
 
