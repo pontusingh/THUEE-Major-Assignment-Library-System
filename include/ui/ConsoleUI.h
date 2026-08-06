@@ -35,6 +35,7 @@ private:
     //管理：管理书目，用户，记录，统计数据
     void handleBookManagement();
     void handleUserManagement();
+    void handleRecordsMenu() const;
     void handleAllRecords() const;
     void handleStatistics() const;
 

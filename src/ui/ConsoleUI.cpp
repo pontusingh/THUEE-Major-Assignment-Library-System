@@ -121,7 +121,7 @@ void ConsoleUI::showAdminMenu() {
         std::cout << "\n----- 管理员菜单 -----\n"
                   << "1. 图书管理\n"
                   << "2. 用户管理\n"
-                  << "3. 全部借阅记录\n"
+                  << "3. 借阅记录\n"
                   << "4. 统计信息\n"
                   << "0. 退出登录\n"
                   << "请选择: ";
@@ -131,7 +131,7 @@ void ConsoleUI::showAdminMenu() {
             switch (choice) {
                 case 1: handleBookManagement(); break;
                 case 2: handleUserManagement(); break;
-                case 3: handleAllRecords(); break;
+                case 3: handleRecordsMenu(); break;
                 case 4: handleStatistics(); break;
                 default: std::cout << "无效选项。\n"; break;
             }
@@ -353,6 +353,51 @@ void ConsoleUI::handleUserManagement() {
             }
         } catch (const LibraryException& e) {
             std::cout << "操作失败：" << e.what() << "\n";
+        }
+    }
+}
+
+void ConsoleUI::handleRecordsMenu() const {
+    while (true) {
+        std::cout << "\n----- 借阅记录 -----\n"
+                  << "1. 全部借阅记录\n"
+                  << "2. 按用户查询借阅记录\n"
+                  << "3. 按书目查询借阅记录\n"
+                  << "0. 返回\n"
+                  << "请选择: ";
+        const int choice = readInt("");
+        if (choice == 0) return;
+        switch (choice) {
+            case 1:
+                handleAllRecords();
+                break;
+            case 2: {
+                const std::string userId = readLine("输入用户 ID (输入 q 返回): ");
+                if (userId == "q" || userId == "quit") break;
+                const auto records = library_.getReaderRecords(userId);
+                if (records.empty()) {
+                    std::cout << "该用户暂无借阅记录。\n";
+                    break;
+                }
+                std::cout << "用户 [" << userId << "] 的借阅记录：\n";
+                for (const auto& r : records) std::cout << r;
+                break;
+            }
+            case 3: {
+                const std::string bookId = readLine("输入图书 ID (输入 q 返回): ");
+                if (bookId == "q" || bookId == "quit") break;
+                const auto records = library_.getBookRecords(bookId);
+                if (records.empty()) {
+                    std::cout << "该书暂无借阅记录。\n";
+                    break;
+                }
+                std::cout << "图书 [" << bookId << "] 的借阅记录：\n";
+                for (const auto& r : records) std::cout << r;
+                break;
+            }
+            default:
+                std::cout << "无效选项。\n";
+                break;
         }
     }
 }
