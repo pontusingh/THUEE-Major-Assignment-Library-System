@@ -32,8 +32,6 @@ public:
 
     void display(std::ostream& os) const override;
 
-    bool operator<(const BorrowRecord& other) const;
-
 private:
     std::string recordId_;
     std::string bookId_;

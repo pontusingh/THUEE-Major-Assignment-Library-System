@@ -140,13 +140,16 @@ void Library::renewBook(const std::string& userId, const std::string& bookId, in
 
 void Library::addBook(const Book& book) {
     validateId(book.getId());
-    if (findBook(book.getId())) throw DuplicateIdException();
+    for (size_t i = 0; i < books_.size(); ++i) {
+        if (books_[i] == book) throw DuplicateIdException();
+    }
     books_.push_back(book);
 }
 
 void Library::removeBook(const std::string& bookId) {
+    const Book stub(bookId, "", "", "", "", "", "");
     for (size_t i = 0; i < books_.size(); ++i) {
-        if (books_[i].getId() == bookId) {
+        if (books_[i] == stub) {
             books_.erase(books_.begin() + i);
             return;
         }
