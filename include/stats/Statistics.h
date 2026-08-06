@@ -35,8 +35,4 @@ public:
     static UserReadingReport generateUserReport(
         const std::vector<BorrowRecord>& userRecords,
         const std::vector<Book>& allBooks);
-
-private:
-    static int dateToAbsoluteDays(const std::string& date);
-    static int calculateDaysDifference(const std::string& from, const std::string& to);
 };

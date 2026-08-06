@@ -1,46 +1,15 @@
 #include "core/Library.h"
 
-#include <cstdio>
-#include <ctime>
 #include <exception>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "utils/DateUtils.h"
+
 namespace {
 
 constexpr int DEFAULT_BORROW_DAYS = 28;
-
-// 今日日期，格式 YYYY-MM-DD
-std::string todayStr() {
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
-    char buf[16];
-    std::strftime(buf, sizeof(buf), "%Y-%m-%d", now);
-    return buf;
-}
-
-// "YYYY-MM-DD" -> time_t（当日正午解析，规避夏令时边界误差）
-std::time_t parseToTime(const std::string& date) {
-    int y = 0, m = 0, d = 0;
-    std::sscanf(date.c_str(), "%d-%d-%d", &y, &m, &d);
-    std::tm t = {};
-    t.tm_year = y - 1900;
-    t.tm_mon = m - 1;
-    t.tm_mday = d;
-    t.tm_hour = 12;
-    return std::mktime(&t);
-}
-
-// 在 "YYYY-MM-DD" 上增减 days 天
-std::string addDays(const std::string& date, int days) {
-    std::time_t tt = parseToTime(date);
-    tt += static_cast<std::time_t>(days) * 86400;
-    std::tm* r = std::localtime(&tt);
-    char buf[16];
-    std::strftime(buf, sizeof(buf), "%Y-%m-%d", r);
-    return buf;
-}
 
 // 校验 ID：不允许为空或含 | , ; 换行（保证文件无需转义）
 void validateId(const std::string& id) {
@@ -110,12 +79,12 @@ void Library::borrowBook(const std::string& userId, const std::string& bookId) {
     if (book->isBorrowed()) throw BorrowDeniedException("图书已被借出");
     if (!user->canBorrow()) throw BorrowDeniedException("借阅数量已达上限");
 
-    const std::string today = todayStr();
+    const std::string today = Date::todayStr();
     //图书侧、读者侧、记录侧
     book->borrowBook();//(*book).borrowBook()
     user->addBorrowedBook(bookId);
     records_.push_back(BorrowRecord(nextRecordId(records_), bookId, userId, today,
-                                    addDays(today, DEFAULT_BORROW_DAYS)));
+                                    Date::addDays(today, DEFAULT_BORROW_DAYS)));
 }
 
 void Library::returnBook(const std::string& userId, const std::string& bookId) {
@@ -129,7 +98,7 @@ void Library::returnBook(const std::string& userId, const std::string& bookId) {
         }
     }
     if (!rec) throw RecordNotFoundException();
-    rec->setReturnDate(todayStr());
+    rec->setReturnDate(Date::todayStr());
 
     //图书侧
     Book* book = nullptr;
@@ -162,7 +131,7 @@ void Library::renewBook(const std::string& userId, const std::string& bookId, in
         }
     }
     if (!rec) throw RecordNotFoundException();
-    const std::string today = todayStr();
+    const std::string today = Date::todayStr();
     if (rec->isReturned()) throw BorrowDeniedException("已归还，不可续借");
     if (rec->isRenewed()) throw BorrowDeniedException("已续借过一次，不可再续");
     if (rec->isOverdue(today)) throw BorrowDeniedException("已超期，不可续借");

@@ -1,35 +1,12 @@
 #include "stats/Statistics.h"
 
 #include <algorithm>
-#include <cstdio>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
 
-namespace {
-
-// 公历日期转自纪元（1970-01-01）的绝对天数（约化儒略日算法）
-int daysFromCivil(int y, unsigned m, unsigned d) {
-    y -= m <= 2;
-    const int era = (y >= 0 ? y : y - 399) / 400;
-    const unsigned yoe = static_cast<unsigned>(y - era * 400);
-    const unsigned doy = (153 * (m + (m > 2 ? -3 : 9)) + 2) / 5 + d - 1;
-    const unsigned doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
-    return era * 146097 + static_cast<int>(doe) - 719468;
-}
-
-}  // namespace
-
-int Statistics::dateToAbsoluteDays(const std::string& date) {
-    int y = 0, m = 0, d = 0;
-    std::sscanf(date.c_str(), "%d-%d-%d", &y, &m, &d);
-    return daysFromCivil(y, m, d);
-}
-
-int Statistics::calculateDaysDifference(const std::string& from, const std::string& to) {
-    return dateToAbsoluteDays(to) - dateToAbsoluteDays(from);
-}
+#include "utils/DateUtils.h"
 
 std::vector<std::pair<Book, int>> Statistics::getTopBooks(
     const std::vector<BorrowRecord>& records, const std::vector<Book>& books, int topN) {
@@ -100,7 +77,7 @@ double Statistics::getSystemAverageBorrowDuration(
     int count = 0;
     for (const auto& r : returnedRecords) {
         if (!r.isReturned()) continue;
-        total += calculateDaysDifference(r.getBorrowDate(), r.getReturnDate());
+        total += Date::daysBetween(r.getBorrowDate(), r.getReturnDate());
         ++count;
     }
     return count == 0 ? 0.0 : total / count;
@@ -114,7 +91,7 @@ Statistics::UserReadingReport Statistics::generateUserReport(
 
     for (const auto& r : userRecords) {
         if (!r.isReturned()) continue;
-        const int days = calculateDaysDifference(r.getBorrowDate(), r.getReturnDate());
+        const int days = Date::daysBetween(r.getBorrowDate(), r.getReturnDate());
 
         ++rep.totalBorrowedCount;
         rep.totalBorrowDays += days;
