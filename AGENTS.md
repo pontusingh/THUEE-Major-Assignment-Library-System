@@ -108,7 +108,7 @@
 
 *   **`FileStorage`（纯工具类）**：`FileStorage() = delete;` 防实例化，全部 `static` 方法，仅持久化 Book/User/BorrowRecord 三组数据。
 *   **管理员为内置账号**：`Library` 构造时注入固定管理员（`admin`/`admin123`），不落盘、不可增删，无需 Librarian 持久化。
-*   **文件格式**：`data/` 下每类数据一个文件，每行一条记录、字段以 `|` 分隔；文本统一 UTF-8。
+*   **文件格式**：可执行文件旁的 `build/data/` 下每类数据一个文件，每行一条记录、字段以 `|` 分隔；文本统一 UTF-8。
 *   **异常**：文件读写失败抛 `FileStorageException`（继承 `std::runtime_error`）；`load` 时文件不存在返回空集合，解析出错抛异常。
 *   **输入约束**：UI 录入字段校验含 `|` 或换行即抛 `InvalidInputException`，保证文件无需转义。
 
@@ -135,6 +135,6 @@ library_system/
 │   ├── exceptions/     LibraryExceptions.h
 │   └── ui/             ConsoleUI.h          (菜单循环)
 ├── src/                (与 include/ 镜像，每个 .h 对应一个 .cpp)
-├── data/               (运行时持久化文件)
+├── build/data/         (运行时持久化文件，随可执行文件生成)
 └── main.cpp            薄入口点，将 ConsoleUI 和 Library 连接在一起
 ```

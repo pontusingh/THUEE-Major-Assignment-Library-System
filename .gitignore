@@ -1,0 +1,25 @@
+# 构建产物
+build/
+
+# CMake 中间文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+.cmake/
+
+# 编译输出
+*.exe
+*.obj
+*.o
+*.bin
+
+# 运行时持久化数据
+data/
+build/data/
+
+# IDE / 系统
+.vscode/
+.idea/
+*.user
+Thumbs.db
