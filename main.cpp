@@ -49,6 +49,8 @@ int main() {
                 lib.addLibrarian(l);
             } catch (const DuplicateIdException&) {
                 // 与内置 admin 或已加载馆员冲突时静默跳过
+            } catch (const InvalidInputException&) {
+                // 文件中可能含内置 admin(3级)，其不参与新增校验，静默跳过
             }
         }
     } catch (const LibraryException& e) {
